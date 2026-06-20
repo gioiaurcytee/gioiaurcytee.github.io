@@ -188,7 +188,7 @@ h1 {
 }
 
 .hub-button-primary {
-  color: var(--white);
+  color: var(--light-blue);
   background:
     linear-gradient(
       135deg,
