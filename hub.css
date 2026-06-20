@@ -1,0 +1,296 @@
+:root {
+  --navy: #1c2d4a;
+  --navy-deep: #121f33;
+  --light-blue: #d8e9f7;
+  --light-blue-soft: #edf6fd;
+  --cream: #fbf7f2;
+  --white: #ffffff;
+  --gold: #c7aa78;
+  --pearl: #f5f2ec;
+  --text: #1f1f1f;
+  --shadow: 0 22px 70px rgba(18, 31, 51, 0.24);
+  --radius-lg: 34px;
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: var(--light-blue);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hub-page {
+  min-height: 100dvh;
+}
+
+.hub-hero {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(1rem, 4vw, 2.5rem);
+
+  background-image:
+    linear-gradient(
+      rgba(216, 233, 247, 0.12),
+      rgba(216, 233, 247, 0.2)
+    ),
+    url("assets/lounge-bg.png");
+
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.hub-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.48) 36%,
+      rgba(216, 233, 247, 0.18) 65%,
+      rgba(18, 31, 51, 0.16) 100%
+    );
+  pointer-events: none;
+}
+
+.hub-card {
+  position: relative;
+  z-index: 1;
+  width: min(94vw, 760px);
+  padding: clamp(1.35rem, 4vw, 3rem);
+  border-radius: var(--radius-lg);
+  text-align: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.84),
+      rgba(251, 247, 242, 0.7)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(13px);
+}
+
+.hub-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0.85rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+
+  color: var(--navy);
+  background: rgba(216, 233, 247, 0.72);
+  border: 1px solid rgba(28, 45, 74, 0.1);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3.2rem, 9vw, 6.25rem);
+  line-height: 0.96;
+  color: var(--navy-deep);
+}
+
+.hub-subtitle {
+  max-width: 520px;
+  margin: 1rem auto 1.7rem;
+  font-size: clamp(1rem, 2.3vw, 1.22rem);
+  line-height: 1.55;
+  color: rgba(18, 31, 51, 0.88);
+}
+
+.hub-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.hub-button {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 0.18rem;
+  min-height: 78px;
+  padding: 0.95rem 1rem;
+  border-radius: 22px;
+
+  color: var(--navy-deep);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(237, 246, 253, 0.82)
+    );
+
+  border: 1px solid rgba(28, 45, 74, 0.1);
+  box-shadow: 0 12px 26px rgba(28, 45, 74, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.hub-button::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, var(--pearl) 55%, #d9d0c5 82%);
+  box-shadow: 0 0 0 3px rgba(216, 233, 247, 0.55);
+}
+
+.hub-button span {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.hub-button small {
+  display: block;
+  color: rgba(18, 31, 51, 0.68);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.hub-button:hover,
+.hub-button:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 18px 32px rgba(28, 45, 74, 0.18);
+  outline: none;
+}
+
+.hub-button-primary {
+  color: var(--white);
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy-deep),
+      var(--navy)
+    );
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hub-button-primary small {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.hub-button-primary::before {
+  background: radial-gradient(circle at 30% 30%, #ffffff, #f5f2ec 45%, var(--gold) 82%);
+  box-shadow: 0 0 0 3px rgba(199, 170, 120, 0.22);
+}
+
+.hub-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.hub-links a {
+  border-bottom: 1px solid rgba(28, 45, 74, 0.25);
+}
+
+.hub-links a:hover,
+.hub-links a:focus-visible {
+  color: #7a5a48;
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .hub-hero {
+    min-height: 100dvh;
+    padding: 1rem;
+    align-items: center;
+    background-position: center bottom;
+  }
+
+  .hub-shade {
+    background:
+      linear-gradient(
+        rgba(216, 233, 247, 0.06),
+        rgba(255, 255, 255, 0.14)
+      ),
+      radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.82) 0%,
+        rgba(255, 255, 255, 0.62) 50%,
+        rgba(216, 233, 247, 0.26) 100%
+      );
+  }
+
+  .hub-card {
+    width: min(94vw, 430px);
+    padding: 1.25rem;
+    border-radius: 26px;
+  }
+
+  .hub-actions {
+    grid-template-columns: 1fr;
+    gap: 0.68rem;
+  }
+
+  .hub-button {
+    min-height: 64px;
+    border-radius: 18px;
+  }
+
+  .hub-button span {
+    font-size: 0.96rem;
+  }
+
+  .hub-button small {
+    font-size: 0.74rem;
+  }
+
+  .hub-links {
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hub-card {
+    padding: 1rem;
+  }
+
+  .hub-subtitle {
+    margin-bottom: 1.2rem;
+  }
+
+  .hub-button {
+    min-height: 60px;
+    padding: 0.8rem 0.9rem;
+  }
+}
