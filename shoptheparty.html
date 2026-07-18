@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A complete Pink Party Guide featuring outfits, decorations, activities, favors, hosting details, planning notes, and recommended products.">
+  <title>Pink Party Guide</title>
+  <style>
+    :root{
+      --pink:#f7bfd6;--pink-soft:#fff1f7;--pink-deep:#d66b9a;--rose:#b94f7f;
+      --navy:#1f2f4b;--gold:#c8a56f;--champagne:#eedec7;--cream:#fffaf6;
+      --white:#fff;--text:#2c2a2d;--muted:#6f6870;--border:rgba(31,47,75,.1);
+      --shadow:0 18px 45px rgba(83,53,73,.12);--radius-lg:30px;--radius-md:20px;
+      --max-width:1180px
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:
+      radial-gradient(circle at top left,rgba(247,191,214,.45),transparent 28%),
+      linear-gradient(180deg,#fffdfd 0%,#fff8fb 46%,#fffaf6 100%);line-height:1.65}
+    img{display:block;width:100%}a{color:inherit;text-decoration:none}
+    .container{width:min(92%,var(--max-width));margin:0 auto}
+    .site-header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;font-weight:700;color:var(--navy)}
+    .nav-links{display:flex;flex-wrap:wrap;gap:18px;font-weight:700;font-size:.93rem;color:var(--navy)}
+    .nav-links a:hover{color:var(--rose)}
+    .hero{position:relative;overflow:hidden;padding:94px 0 72px}
+    .hero:before{content:"";position:absolute;top:-140px;right:-120px;width:430px;height:430px;border-radius:50%;
+      background:radial-gradient(circle,rgba(200,165,111,.24),transparent 72%)}
+    .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;padding:8px 14px;margin-bottom:16px;border-radius:999px;
+      background:var(--pink-soft);color:var(--rose);border:1px solid rgba(214,107,154,.18);
+      font-size:.88rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    h1,h2{font-family:Georgia,"Times New Roman",serif;color:var(--navy)}
+    h1{margin:0;font-size:clamp(3rem,7vw,5.8rem);line-height:.98;letter-spacing:-.04em}
+    .hero-copy{max-width:650px;margin:24px 0 30px;color:var(--muted);font-size:1.08rem}
+    .button-row{display:flex;flex-wrap:wrap;gap:14px}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;
+      font-weight:800;transition:transform .2s ease}
+    .button:hover{transform:translateY(-2px)}
+    .button-primary{background:linear-gradient(135deg,var(--rose),var(--pink-deep));color:var(--white);
+      box-shadow:0 12px 25px rgba(185,79,127,.2)}
+    .button-secondary{background:var(--white);color:var(--navy);border:1px solid var(--border)}
+    .hero-image{position:relative;min-height:540px;border-radius:36px;overflow:hidden;background:
+      linear-gradient(rgba(31,47,75,.08),rgba(31,47,75,.28)),
+      url("images/pink-party-hero.jpg") center/cover no-repeat,
+      linear-gradient(135deg,var(--pink),var(--champagne));box-shadow:var(--shadow)}
+    .hero-note{position:absolute;left:24px;right:24px;bottom:24px;padding:20px;border-radius:22px;color:var(--white);
+      background:rgba(31,47,75,.82);backdrop-filter:blur(10px)}
+    .hero-note strong{display:block;margin-bottom:4px}
+    .disclosure{margin-top:22px;padding:14px 16px;border-radius:14px;background:var(--cream);
+      border:1px solid rgba(200,165,111,.35);color:#635c53;font-size:.87rem}
+    .section{padding:78px 0}.section.alt{background:
+      linear-gradient(135deg,rgba(247,191,214,.18),rgba(255,255,255,.85)),var(--pink-soft)}
+    .section-heading{max-width:770px;margin-bottom:34px}.section-heading.center{margin-left:auto;margin-right:auto;text-align:center}
+    .section-label{margin-bottom:10px;color:var(--rose);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    h2{margin:0 0 12px;font-size:clamp(2rem,4vw,3.3rem);line-height:1.12}.section-heading p{margin:0;color:var(--muted)}
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .category-card{min-height:190px;padding:24px;border-radius:var(--radius-md);background:var(--white);
+      border:1px solid var(--border);box-shadow:0 10px 28px rgba(83,53,73,.07)}
+    .category-icon{display:grid;place-items:center;width:50px;height:50px;margin-bottom:18px;border-radius:50%;
+      background:var(--pink-soft);color:var(--rose);font-size:1.3rem}
+    .category-card h3{margin:0 0 8px;color:var(--navy);font-size:1.08rem}
+    .category-card p{margin:0;color:var(--muted);font-size:.93rem}
+    .guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .guide-card{overflow:hidden;border-radius:var(--radius-lg);background:var(--white);border:1px solid var(--border);
+      box-shadow:0 14px 35px rgba(83,53,73,.09)}
+    .guide-image{aspect-ratio:4/3;object-fit:cover;background:linear-gradient(135deg,var(--pink),var(--champagne))}
+    .guide-body{padding:24px}.guide-kicker{color:var(--rose);font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .guide-card h3{margin:8px 0 10px;color:var(--navy);font-size:1.24rem}
+    .guide-card p{margin:0 0 18px;color:var(--muted);font-size:.95rem}
+    .shop-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:999px;
+      background:var(--navy);color:var(--white);font-size:.9rem;font-weight:800}
+    .outfit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+    .outfit-card{display:grid;grid-template-columns:.85fr 1.15fr;overflow:hidden;border-radius:var(--radius-lg);
+      background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow)}
+    .outfit-card img{height:100%;min-height:360px;object-fit:cover;background:linear-gradient(135deg,var(--pink),var(--champagne))}
+    .outfit-copy{padding:28px}.outfit-copy h3{margin:0 0 12px;color:var(--navy);font-size:1.4rem}
+    .outfit-list{margin:0 0 20px;padding-left:18px;color:var(--muted)}
+    .planning-grid{display:grid;grid-template-columns:1fr .85fr;gap:36px;align-items:stretch}
+    .planning-box,.qr-box{padding:34px;border-radius:var(--radius-lg);background:var(--white);
+      border:1px solid var(--border);box-shadow:var(--shadow)}
+    .planning-box p,.qr-box p{color:var(--muted)}.planning-list{display:grid;gap:12px;margin:24px 0}
+    .planning-item{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+    .planning-number{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+      background:var(--pink-soft);color:var(--rose);font-weight:900}
+    .qr-placeholder{display:grid;place-items:center;width:min(100%,280px);aspect-ratio:1;margin:24px auto;
+      border:2px dashed rgba(31,47,75,.2);border-radius:20px;background:
+      linear-gradient(45deg,rgba(31,47,75,.04) 25%,transparent 25%),
+      linear-gradient(-45deg,rgba(31,47,75,.04) 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,rgba(31,47,75,.04) 75%),
+      linear-gradient(-45deg,transparent 75%,rgba(31,47,75,.04) 75%);
+      background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0;
+      color:var(--navy);font-weight:800;text-align:center;padding:20px}
+    .notes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .note-card{padding:24px;border-radius:var(--radius-md);background:var(--white);border:1px solid var(--border)}
+    .note-card h3{margin-top:0;color:var(--navy)}.note-card p{color:var(--muted)}
+    .footer{padding:38px 0;background:var(--navy);color:rgba(255,255,255,.78)}
+    .footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+    .footer-links{display:flex;gap:16px;flex-wrap:wrap}.footer-disclosure{margin-top:18px;font-size:.84rem;color:rgba(255,255,255,.64)}
+    @media(max-width:980px){.hero-grid,.planning-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}
+      .guide-grid,.notes-grid{grid-template-columns:repeat(2,1fr)}.outfit-grid{grid-template-columns:1fr}}
+    @media(max-width:700px){.nav-links{display:none}.hero{padding-top:60px}.hero-image{min-height:430px}
+      .category-grid,.guide-grid,.notes-grid{grid-template-columns:1fr}.outfit-card{grid-template-columns:1fr}
+      .outfit-card img{min-height:320px}.section{padding:58px 0}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">Pink Party Guide</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#shop">Shop the Party</a>
+        <a href="#outfits">What We Wore</a>
+        <a href="#planning">Planning Details</a>
+        <a href="#notes">My Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">A complete party planning and shopping guide</div>
+          <h1>Pink Party Guide</h1>
+          <p class="hero-copy">Everything used to create this celebration, including our outfits, decorations, activities, favors, hosting supplies, planning details, and helpful notes from the experience.</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#shop">Shop the Party</a>
+            <a class="button button-secondary" href="#planning">View Planning Details</a>
+          </div>
+          <p class="disclosure">As an Amazon Associate I earn from qualifying purchases. This page may contain affiliate links.</p>
+        </div>
+        <div class="hero-image" role="img" aria-label="Pink party celebration">
+          <div class="hero-note">
+            <strong>See something you loved at the party?</strong>
+            Browse the same or similar items here, along with my planning notes and recommendations.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading center">
+          <div class="section-label">Explore the guide</div>
+          <h2>Everything in one place</h2>
+          <p>Use these sections to organize the full party experience and make it easy for guests to find what caught their attention.</p>
+        </div>
+        <div class="category-grid">
+          <a class="category-card" href="#outfits"><div class="category-icon">♡</div><h3>What We Wore</h3><p>Adult and child outfits, shoes, accessories, and styling details.</p></a>
+          <a class="category-card" href="#shop"><div class="category-icon">✦</div><h3>Decorations</h3><p>Backdrop details, balloons, banners, tables, and room décor.</p></a>
+          <a class="category-card" href="#shop"><div class="category-icon">✧</div><h3>Activities</h3><p>Painting supplies, games, bubbles, crafts, and entertainment.</p></a>
+          <a class="category-card" href="#shop"><div class="category-icon">★</div><h3>Party Favors</h3><p>Bags, sunglasses, lip gloss, tags, packaging, and keepsakes.</p></a>
+          <a class="category-card" href="#shop"><div class="category-icon">⌂</div><h3>Hosting Supplies</h3><p>Serving pieces, tableware, drinkware, signs, and practical extras.</p></a>
+          <a class="category-card" href="#planning"><div class="category-icon">▣</div><h3>Planning Sheet</h3><p>Timeline, budget, guest list, orders, activities, and setup notes.</p></a>
+          <a class="category-card" href="#notes"><div class="category-icon">☀</div><h3>What Worked</h3><p>The items, choices, and details I would happily use again.</p></a>
+          <a class="category-card" href="#notes"><div class="category-icon">◆</div><h3>What I Would Change</h3><p>Helpful takeaways for anyone planning a similar celebration.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="shop">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Shop the party</div>
+          <h2>Featured party details</h2>
+          <p>Replace each sample card with your own photo, product notes, and affiliate link.</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-decor.jpg" alt="Pink party decorations"><div class="guide-body"><div class="guide-kicker">Decorations</div><h3>Backdrop and room décor</h3><p>Add details about the backdrop, balloons, banner, table setup, colors, and what created the biggest visual impact.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-painting.jpg" alt="Pink party painting activity"><div class="guide-body"><div class="guide-kicker">Activities</div><h3>Painting station</h3><p>Add the canvas size, paint, brushes, easels, aprons, table protection, and any activity instructions.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-bubbles.jpg" alt="Pink party bubble bottles"><div class="guide-body"><div class="guide-kicker">Activities and favors</div><h3>Bubble bottles and bubble wands</h3><p>Add the bottle size, wand style, label details, and whether the bubbles were used during the party or taken home.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-favors.jpg" alt="Pink party favor bags"><div class="guide-body"><div class="guide-kicker">Party favors</div><h3>Favor bags and take home items</h3><p>List what was included, how the bags were styled, which items were most popular, and how many guests they served.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-table.jpg" alt="Pink party table setup"><div class="guide-body"><div class="guide-kicker">Hosting</div><h3>Tableware and serving details</h3><p>Add cups, plates, napkins, trays, serving tools, table covers, labels, and practical hosting supplies.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+          <article class="guide-card"><img class="guide-image" src="images/pink-party-games.jpg" alt="Pink party games and entertainment"><div class="guide-body"><div class="guide-kicker">Entertainment</div><h3>Games and extra activities</h3><p>Add any water activities, video games, printable games, music, props, or extra entertainment used during the party.</p><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">View Products</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="outfits">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">What we wore</div>
+          <h2>Party outfits and accessories</h2>
+          <p>Feature every outfit detail guests may ask about, from clothing and shoes to jewelry, bags, hair accessories, and styling pieces.</p>
+        </div>
+        <div class="outfit-grid">
+          <article class="outfit-card">
+            <img src="images/my-pink-party-outfit.jpg" alt="Adult pink party outfit">
+            <div class="outfit-copy"><h3>My Party Look</h3><ul class="outfit-list"><li>Dress or main outfit</li><li>Shoes</li><li>Jewelry</li><li>Bag or purse</li><li>Hair accessories</li><li>Beauty details</li></ul><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">Shop My Look</a></div>
+          </article>
+          <article class="outfit-card">
+            <img src="images/child-pink-party-outfit.jpg" alt="Child pink party outfit">
+            <div class="outfit-copy"><h3>Her Party Look</h3><ul class="outfit-list"><li>Dress or main outfit</li><li>Shoes</li><li>Hair accessories</li><li>Jewelry or extras</li><li>Bag or purse</li><li>Any matching details</li></ul><a class="shop-link" href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow sponsored noopener">Shop Her Look</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="planning">
+      <div class="container planning-grid">
+        <div class="planning-box">
+          <div class="section-label">Planning details</div>
+          <h2>See how the party came together</h2>
+          <p>Add a view only link to your Google Sheet so visitors can see how you organized the budget, guest list, orders, supplies, timeline, and setup.</p>
+          <div class="planning-list">
+            <div class="planning-item"><div class="planning-number">1</div><div><strong>Budget and purchase tracker</strong><br>Add your planned costs, actual costs, and ordering notes.</div></div>
+            <div class="planning-item"><div class="planning-number">2</div><div><strong>Guest list and favor count</strong><br>Track RSVPs, age groups, activity needs, and favor quantities.</div></div>
+            <div class="planning-item"><div class="planning-number">3</div><div><strong>Timeline and setup plan</strong><br>Include ordering dates, prep tasks, setup order, and event timing.</div></div>
+            <div class="planning-item"><div class="planning-number">4</div><div><strong>Supply and activity list</strong><br>Organize what was needed for decorations, food, games, painting, and favors.</div></div>
+          </div>
+          <a class="button button-primary" href="YOUR_GOOGLE_SHEET_VIEW_LINK_HERE" target="_blank" rel="noopener">View the Planning Sheet</a>
+        </div>
+        <div class="qr-box">
+          <div class="section-label">For your printed party guide</div>
+          <h2>Scan to Shop the Party</h2>
+          <p>Replace the placeholder below with your actual QR code after this page is published.</p>
+          <div class="qr-placeholder">ADD YOUR QR CODE IMAGE HERE</div>
+          <p style="text-align:center">If you liked something you saw at the party, browse the same or similar items here.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="container">
+        <div class="section-heading center">
+          <div class="section-label">My honest notes</div>
+          <h2>What I learned from planning it</h2>
+  
+        </div>
+        <div class="notes-grid">
+          <article class="note-card"><h3>What I Loved</h3><p>Add the products, activities, decorations, or outfit details that exceeded your expectations.</p></article>
+          <article class="note-card"><h3>What I Would Buy Again</h3><p>Add the items that were useful, good quality, worth the price, or easy to reuse.</p></article>
+          <article class="note-card"><h3>What I Would Change</h3><p>Add anything you would order differently, skip, buy more of, prepare earlier, or replace next time.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <strong>Pink Party Guide</strong>
+        <div class="footer-links"><a href="#shop">Shop</a><a href="#outfits">Outfits</a><a href="#planning">Planning</a><a href="#notes">Notes</a></div>
+      </div>
+      <p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases. Product prices and availability may change. Recommendations reflect personal experience and opinion.</p>
+    </div>
+  </footer>
+</body>
+</html>
