@@ -108,7 +108,16 @@
       color: var(--incorrect-text);
       border-color: #f3cccc;
     }
+    
+.btn-danger {
+  background: #b91c1c;
+  color: white;
+  border-color: #b91c1c;
+}
 
+.btn-danger:hover {
+  background: #991b1b;
+}
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -589,7 +598,7 @@
           />
         </label>
 
-        <button class="btn" onclick="deleteDeck()">Delete Deck</button>
+        <button class="btn btn-danger" onclick="deleteDeck()">Delete Deck</button>
       </div>
     </div>
 
@@ -1170,10 +1179,6 @@ function renameDeck() {
 
 
 function deleteDeck() {
-  if(data.currentDeck === ALL_CHAPTERS) {
-    alert("Select a specific chapter before deleting a deck.");
-    return;
-  }
 
   const names = Object.keys(data.decks);
 
@@ -1182,15 +1187,36 @@ function deleteDeck() {
     return;
   }
 
-  if(!confirm(`Delete the deck "${data.currentDeck}"?`)) return;
+  if(data.currentDeck === "All Chapters") {
+    alert("Select a specific chapter before deleting a deck.");
+    return;
+  }
+
+  const confirmed = confirm(
+    `Are you sure you want to delete "${data.currentDeck}"?\n\nThis will permanently delete all flashcards in this deck.`
+  );
+
+  if(!confirmed) {
+    return;
+  }
 
   delete data.decks[data.currentDeck];
-  data.currentDeck = sortedDeckNames()[0];
+
+  data.currentDeck =
+    Object.keys(data.decks)
+      .sort((a, b) => {
+        const aNum = parseInt(a.match(/\d+/)?.[0] || 999);
+        const bNum = parseInt(b.match(/\d+/)?.[0] || 999);
+        return aNum - bNum;
+      })[0];
 
   saveData();
+
   updateDeckSelect();
   updateCategories();
   applyFilters();
+
+  alert("Deck deleted.");
 }
 
 
