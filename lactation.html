@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,452 +6,697 @@
   <title>IBCLE Recall</title>
 
   <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #6f7a8a;
+      --border: #dfe5ec;
+      --primary: #24476b;
+      --primary-soft: #eaf1f8;
+      --correct: #e7f6ec;
+      --correct-text: #24663a;
+      --incorrect: #fdeaea;
+      --incorrect-text: #9b3131;
+      --shadow: 0 12px 30px rgba(31, 47, 68, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f9fb;
       margin: 0;
-      padding: 20px;
-      color: #1f2937;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    .container {
-      max-width: 850px;
-      margin: auto;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #6b7280;
-      margin-bottom: 25px;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    button, select {
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      font-size: 14px;
+    button,
+    select,
+    input,
+    textarea {
+      font: inherit;
     }
 
     button {
-      background: white;
-    }
-
-    button:hover {
-      background: #eef2f7;
-    }
-
-    .flashcard {
-      background: white;
-      border-radius: 16px;
-      padding: 40px 30px;
-      min-height: 260px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
       cursor: pointer;
     }
 
-    .category {
+    .app-shell {
+      width: min(1050px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 30px 0 50px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+    }
+
+    .btn:hover {
+      background: #f8fafc;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-correct {
+      background: var(--correct);
+      color: var(--correct-text);
+      border-color: #cfe8d6;
+    }
+
+    .btn-incorrect {
+      background: var(--incorrect);
+      color: var(--incorrect-text);
+      border-color: #f3cccc;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(31, 47, 68, 0.04);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 21px;
+      margin-bottom: 3px;
+    }
+
+    .stat-card span {
+      color: var(--muted);
       font-size: 13px;
-      color: #6b7280;
+    }
+
+    .study-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 20px;
     }
 
+    select,
+    input,
+    textarea {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    select {
+      min-width: 150px;
+    }
+
+    .study-card-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .flashcard {
+      min-height: 390px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 46px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .flashcard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(31, 47, 68, 0.11);
+    }
+
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 26px;
+    }
+
+    .card-image {
+      max-width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
     .card-text {
-      font-size: 24px;
-      line-height: 1.4;
+      font-size: 27px;
+      line-height: 1.45;
+      max-width: 660px;
     }
 
     .hint {
+      margin-top: 22px;
+      color: var(--muted);
       font-size: 14px;
-      margin-top: 20px;
-      color: #6b7280;
+    }
+
+    .flip-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .progress {
       text-align: center;
-      margin: 15px 0;
+      margin: 16px 0 12px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .rating-buttons {
+    .study-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .below-card-actions {
       display: flex;
-      gap: 15px;
       justify-content: center;
-      margin-top: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
     }
 
-    .correct {
-      background: #dcfce7;
+    .secondary-panel {
+      max-width: 780px;
+      margin: 24px auto 0;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
     }
 
-    .incorrect {
-      background: #fee2e2;
+    .secondary-panel h3 {
+      margin: 0 0 10px;
     }
 
-    .import-box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 25px;
-      box-shadow: 0 3px 10px rgba(0,0,0,.06);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 160px;
-      padding: 12px;
-      box-sizing: border-box;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: Arial, sans-serif;
+    .secondary-panel p {
+      margin-top: 0;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.4);
+      background: rgba(13, 24, 38, 0.45);
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 20px;
+      z-index: 100;
     }
 
     .modal-content {
-      background: white;
-      width: 100%;
-      max-width: 600px;
-      padding: 25px;
-      border-radius: 14px;
+      width: min(640px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
 
-    .modal-content input,
-    .modal-content textarea {
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group textarea {
       width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-box {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-choice {
+      width: 100%;
+      margin-top: 10px;
+      text-align: left;
+      padding: 13px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    .quiz-choice:hover {
+      background: #f8fafc;
+    }
+
+    .quiz-feedback {
+      margin-top: 16px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .flashcard {
+        min-height: 330px;
+        padding: 34px 24px;
+      }
+
+      .card-text {
+        font-size: 22px;
+      }
+
+      .study-controls {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app-shell">
 
-  <h1>IBCLE Recall</h1>
-  <div class="subtitle">Interactive Lactation Study Deck</div>
+  <div class="topbar">
+    <div class="brand">
+      <h1>IBCLE Recall</h1>
+      <p>Interactive Lactation Study Deck</p>
+    </div>
 
-  <div class="toolbar">
-    <button onclick="shuffleCards()">Shuffle</button>
-    <button onclick="showIncorrectOnly()">Incorrect Only</button>
-    <button onclick="showAllCards()">All Cards</button>
-    <button onclick="openEditor()">Edit Card</button>
-    <button onclick="deleteCard()">Delete Card</button>
+    <div class="top-actions">
+      <select id="deckSelect" onchange="switchDeck()"></select>
+      <button class="btn" onclick="openManageDeck()">Manage Deck</button>
+      <button class="btn btn-primary" onclick="openAddCards()">Add Cards</button>
+    </div>
+  </div>
 
-    <select id="categoryFilter" onchange="filterCategory()">
+  <div class="stats">
+    <div class="stat-card">
+      <strong id="totalStat">0</strong>
+      <span>Total</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="correctStat">0</strong>
+      <span>Correct</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="incorrectStat">0</strong>
+      <span>Incorrect</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="unreviewedStat">0</strong>
+      <span>Unreviewed</span>
+    </div>
+  </div>
+
+  <div class="study-toolbar">
+    <button class="btn" onclick="shuffleCards()">Shuffle</button>
+
+    <select id="categoryFilter" onchange="applyFilters()">
       <option value="all">All Categories</option>
     </select>
+
+    <button class="btn" onclick="showIncorrectOnly()">Incorrect Only</button>
+    <button class="btn" onclick="showAllCards()">All Cards</button>
+    <button class="btn" onclick="startQuiz()">Quiz Mode</button>
   </div>
 
-  <div class="flashcard" onclick="flipCard()">
-    <div id="category" class="category"></div>
-    <div id="cardText" class="card-text"></div>
-    <div id="hint" class="hint"></div>
+  <div id="studyArea">
+
+    <div class="study-card-wrap">
+
+      <div class="flashcard" onclick="flipCard()">
+
+        <div id="category" class="category-pill"></div>
+
+        <img id="cardImage" class="card-image hidden" />
+
+        <div id="cardText" class="card-text"></div>
+
+        <div id="hint" class="hint"></div>
+
+        <div class="flip-note">Click card to flip</div>
+
+      </div>
+
+      <div class="progress" id="progress"></div>
+
+      <div class="study-controls">
+        <button class="btn" onclick="previousCard()">Previous</button>
+
+        <button
+          class="btn btn-incorrect"
+          onclick="markIncorrect(event)">
+          Incorrect
+        </button>
+
+        <button
+          class="btn btn-correct"
+          onclick="markCorrect(event)">
+          Correct
+        </button>
+
+        <button class="btn" onclick="nextCard()">Next</button>
+      </div>
+
+      <div class="below-card-actions">
+        <button class="btn" onclick="openEditor()">Edit Card</button>
+        <button class="btn" onclick="deleteCard()">Delete Card</button>
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="progress" id="progress"></div>
+  <div id="quizArea" class="quiz-box hidden">
+    <h2 id="quizQuestion"></h2>
 
-  <div class="toolbar">
-    <button onclick="previousCard()">Previous</button>
-    <button onclick="nextCard()">Next</button>
-  </div>
+    <div id="quizChoices"></div>
 
-  <div class="rating-buttons">
-    <button class="incorrect" onclick="markIncorrect()">Incorrect</button>
-    <button class="correct" onclick="markCorrect()">Correct</button>
-  </div>
+    <div id="quizFeedback" class="quiz-feedback"></div>
 
-  <div class="import-box">
-    <h3>Add Flashcards</h3>
-
-    <p>
-      Paste one card per line using:
-      <br>
-      <strong>Question | Answer | Hint | Category</strong>
-    </p>
-
-    <textarea id="bulkInput"
-      placeholder="What is the primary carbohydrate in human milk? | Lactose | | Carbohydrates"></textarea>
-
-    <br><br>
-
-    <button onclick="addCards()">Add Cards</button>
+    <div class="below-card-actions">
+      <button class="btn" onclick="nextQuizQuestion()">Next Question</button>
+      <button class="btn" onclick="exitQuiz()">Exit Quiz</button>
+    </div>
   </div>
 
 </div>
 
 
-<div id="editModal" class="modal hidden">
+<!-- ADD CARDS MODAL -->
 
+<div id="addCardsModal" class="modal hidden">
+  <div class="modal-content">
+
+    <h2>Add Flashcards</h2>
+
+    <p>
+      Paste one card per line using:
+      <br><br>
+      <strong>Question | Answer | Hint | Category</strong>
+    </p>
+
+    <textarea
+      id="bulkInput"
+      placeholder="What is the primary carbohydrate in human milk? | Lactose | | Carbohydrates">
+    </textarea>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeAddCards()">Cancel</button>
+      <button class="btn btn-primary" onclick="addCards()">Add Cards</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- EDIT CARD MODAL -->
+
+<div id="editModal" class="modal hidden">
   <div class="modal-content">
 
     <h2>Edit Card</h2>
 
-    <input id="editQuestion" placeholder="Question">
+    <div class="form-group">
+      <label>Question</label>
+      <input id="editQuestion" />
+    </div>
 
-    <textarea id="editAnswer" placeholder="Answer"></textarea>
+    <div class="form-group">
+      <label>Answer</label>
+      <textarea id="editAnswer"></textarea>
+    </div>
 
-    <input id="editHint" placeholder="Hint">
+    <div class="form-group">
+      <label>Hint</label>
+      <input id="editHint" />
+    </div>
 
-    <input id="editCategory" placeholder="Category">
+    <div class="form-group">
+      <label>Category</label>
+      <input id="editCategory" />
+    </div>
 
-    <button onclick="saveEdit()">Save Changes</button>
-    <button onclick="closeEditor()">Cancel</button>
+    <div class="form-group">
+      <label>Image URL</label>
+      <input id="editImage" />
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeEditor()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+    </div>
 
   </div>
+</div>
 
+
+<!-- MANAGE DECK MODAL -->
+
+<div id="manageDeckModal" class="modal hidden">
+  <div class="modal-content">
+
+    <h2>Manage Deck</h2>
+
+    <div class="secondary-panel">
+      <h3>Deck Options</h3>
+
+      <div class="below-card-actions">
+        <button class="btn" onclick="createDeck()">New Deck</button>
+        <button class="btn" onclick="renameDeck()">Rename Deck</button>
+        <button class="btn" onclick="resetProgress()">Reset Progress</button>
+        <button class="btn" onclick="exportCSV()">Export CSV</button>
+
+        <label class="btn">
+          Import CSV
+          <input
+            type="file"
+            id="csvFile"
+            accept=".csv"
+            onchange="importCSV(event)"
+            hidden
+          />
+        </label>
+
+        <button class="btn" onclick="deleteDeck()">Delete Deck</button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="closeManageDeck()">Done</button>
+    </div>
+
+  </div>
 </div>
 
 
 <script>
 
-let cards = JSON.parse(localStorage.getItem("ibcleCards")) || [];
+const STORAGE_KEY = "ibcleRecallData";
 
-let filteredCards = cards;
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+  decks: {
+    "Chapter 7": []
+  },
+  currentDeck: "Chapter 7"
+};
 
+let filteredCards = [];
 let currentIndex = 0;
-
 let showingAnswer = false;
+let incorrectOnly = false;
+
+let quizCards = [];
+let quizIndex = 0;
+let quizScore = 0;
 
 
-function saveCards() {
-  localStorage.setItem("ibcleCards", JSON.stringify(cards));
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 
-function displayCard() {
-
-  if (filteredCards.length === 0) {
-
-    document.getElementById("cardText").innerText =
-      "Add some flashcards below to begin.";
-
-    document.getElementById("category").innerText = "";
-
-    document.getElementById("hint").innerText = "";
-
-    document.getElementById("progress").innerText = "0 cards";
-
-    return;
-  }
-
-  if (currentIndex >= filteredCards.length) {
-    currentIndex = 0;
-  }
-
-  const card = filteredCards[currentIndex];
-
-  document.getElementById("category").innerText =
-    card.category || "Uncategorized";
-
-  document.getElementById("cardText").innerText =
-    showingAnswer ? card.answer : card.question;
-
-  document.getElementById("hint").innerText =
-    !showingAnswer && card.hint
-      ? "Hint: " + card.hint
-      : "";
-
-  document.getElementById("progress").innerText =
-    `${currentIndex + 1} of ${filteredCards.length}`;
-
+function currentCards() {
+  return data.decks[data.currentDeck] || [];
 }
 
 
-function flipCard() {
-
-  if (!filteredCards.length) return;
-
-  showingAnswer = !showingAnswer;
-
-  displayCard();
-
+function initialize() {
+  updateDeckSelect();
+  updateCategories();
+  applyFilters();
+  updateStats();
 }
 
 
-function nextCard() {
+function updateDeckSelect() {
 
-  if (!filteredCards.length) return;
+  const select = document.getElementById("deckSelect");
 
-  currentIndex =
-    (currentIndex + 1) % filteredCards.length;
+  select.innerHTML = "";
 
-  showingAnswer = false;
+  Object.keys(data.decks).forEach(name => {
 
-  displayCard();
+    const option = document.createElement("option");
 
-}
+    option.value = name;
+    option.textContent = name;
 
-
-function previousCard() {
-
-  if (!filteredCards.length) return;
-
-  currentIndex =
-    (currentIndex - 1 + filteredCards.length)
-    % filteredCards.length;
-
-  showingAnswer = false;
-
-  displayCard();
-
-}
-
-
-function shuffleCards() {
-
-  for (let i = filteredCards.length - 1; i > 0; i--) {
-
-    const j =
-      Math.floor(Math.random() * (i + 1));
-
-    [filteredCards[i], filteredCards[j]] =
-      [filteredCards[j], filteredCards[i]];
-
-  }
-
-  currentIndex = 0;
-
-  showingAnswer = false;
-
-  displayCard();
-
-}
-
-
-function markCorrect() {
-
-  if (!filteredCards.length) return;
-
-  filteredCards[currentIndex].status = "correct";
-
-  saveCards();
-
-  nextCard();
-
-}
-
-
-function markIncorrect() {
-
-  if (!filteredCards.length) return;
-
-  filteredCards[currentIndex].status = "incorrect";
-
-  saveCards();
-
-  nextCard();
-
-}
-
-
-function showIncorrectOnly() {
-
-  filteredCards =
-    cards.filter(card => card.status === "incorrect");
-
-  currentIndex = 0;
-
-  showingAnswer = false;
-
-  displayCard();
-
-}
-
-
-function showAllCards() {
-
-  filteredCards = cards;
-
-  currentIndex = 0;
-
-  showingAnswer = false;
-
-  displayCard();
-
-}
-
-
-function addCards() {
-
-  const input =
-    document.getElementById("bulkInput").value.trim();
-
-  if (!input) return;
-
-  const lines = input.split("\n");
-
-  lines.forEach(line => {
-
-    const parts = line.split("|");
-
-    if (parts.length >= 2) {
-
-      cards.push({
-
-        question: parts[0].trim(),
-
-        answer: parts[1].trim(),
-
-        hint:
-          parts[2] ? parts[2].trim() : "",
-
-        category:
-          parts[3] ? parts[3].trim() : "General",
-
-        status: ""
-
-      });
-
+    if(name === data.currentDeck) {
+      option.selected = true;
     }
 
+    select.appendChild(option);
   });
+}
 
-  saveCards();
 
-  filteredCards = cards;
+function switchDeck() {
 
-  document.getElementById("bulkInput").value = "";
+  data.currentDeck =
+    document.getElementById("deckSelect").value;
 
+  currentIndex = 0;
+  incorrectOnly = false;
+
+  saveData();
   updateCategories();
+  applyFilters();
+}
 
-  currentIndex = cards.length - 1;
 
-  showingAnswer = false;
+function updateStats() {
 
-  displayCard();
+  const cards = currentCards();
 
+  const correct =
+    cards.filter(card => card.status === "correct").length;
+
+  const incorrect =
+    cards.filter(card => card.status === "incorrect").length;
+
+  const unreviewed =
+    cards.length - correct - incorrect;
+
+  document.getElementById("totalStat").textContent =
+    cards.length;
+
+  document.getElementById("correctStat").textContent =
+    correct;
+
+  document.getElementById("incorrectStat").textContent =
+    incorrect;
+
+  document.getElementById("unreviewedStat").textContent =
+    unreviewed;
 }
 
 
@@ -462,8 +706,11 @@ function updateCategories() {
     document.getElementById("categoryFilter");
 
   const categories =
-    [...new Set(cards.map(card =>
-      card.category || "General"))];
+    [...new Set(
+      currentCards().map(card =>
+        card.category || "General"
+      )
+    )].sort();
 
   select.innerHTML =
     '<option value="all">All Categories</option>';
@@ -474,39 +721,305 @@ function updateCategories() {
       document.createElement("option");
 
     option.value = category;
-
     option.textContent = category;
 
     select.appendChild(option);
-
   });
-
 }
 
 
-function filterCategory() {
+function applyFilters() {
 
   const category =
     document.getElementById("categoryFilter").value;
 
   filteredCards =
-    category === "all"
-      ? cards
-      : cards.filter(card =>
-          card.category === category);
+    currentCards().filter(card => {
+
+      const categoryMatch =
+        category === "all" ||
+        card.category === category;
+
+      const incorrectMatch =
+        !incorrectOnly ||
+        card.status === "incorrect";
+
+      return categoryMatch && incorrectMatch;
+    });
 
   currentIndex = 0;
+  showingAnswer = false;
+
+  displayCard();
+  updateStats();
+}
+
+
+function displayCard() {
+
+  const cardText =
+    document.getElementById("cardText");
+
+  const category =
+    document.getElementById("category");
+
+  const hint =
+    document.getElementById("hint");
+
+  const image =
+    document.getElementById("cardImage");
+
+  if(filteredCards.length === 0) {
+
+    cardText.textContent =
+      "Add cards to begin studying.";
+
+    category.textContent =
+      "IBCLE Recall";
+
+    hint.textContent = "";
+
+    image.classList.add("hidden");
+
+    document.getElementById("progress").textContent =
+      "0 cards";
+
+    return;
+  }
+
+  if(currentIndex >= filteredCards.length) {
+    currentIndex = 0;
+  }
+
+  const card =
+    filteredCards[currentIndex];
+
+  category.textContent =
+    card.category || "General";
+
+  cardText.textContent =
+    showingAnswer
+      ? card.answer
+      : card.question;
+
+  hint.textContent =
+    !showingAnswer && card.hint
+      ? "Hint: " + card.hint
+      : "";
+
+  if(card.image) {
+    image.src = card.image;
+    image.classList.remove("hidden");
+  } else {
+    image.classList.add("hidden");
+  }
+
+  document.getElementById("progress").textContent =
+    `${currentIndex + 1} of ${filteredCards.length}`;
+}
+
+
+function flipCard() {
+
+  if(!filteredCards.length) return;
+
+  showingAnswer = !showingAnswer;
+
+  displayCard();
+}
+
+
+function nextCard() {
+
+  if(!filteredCards.length) return;
+
+  currentIndex =
+    (currentIndex + 1) % filteredCards.length;
 
   showingAnswer = false;
 
   displayCard();
+}
 
+
+function previousCard() {
+
+  if(!filteredCards.length) return;
+
+  currentIndex =
+    (currentIndex - 1 + filteredCards.length)
+    % filteredCards.length;
+
+  showingAnswer = false;
+
+  displayCard();
+}
+
+
+function shuffleCards() {
+
+  for(let i = filteredCards.length - 1; i > 0; i--) {
+
+    const j =
+      Math.floor(Math.random() * (i + 1));
+
+    [
+      filteredCards[i],
+      filteredCards[j]
+    ] = [
+      filteredCards[j],
+      filteredCards[i]
+    ];
+  }
+
+  currentIndex = 0;
+  showingAnswer = false;
+
+  displayCard();
+}
+
+
+function markCorrect(event) {
+
+  event.stopPropagation();
+
+  if(!filteredCards.length) return;
+
+  filteredCards[currentIndex].status =
+    "correct";
+
+  saveData();
+  updateStats();
+  nextCard();
+}
+
+
+function markIncorrect(event) {
+
+  event.stopPropagation();
+
+  if(!filteredCards.length) return;
+
+  filteredCards[currentIndex].status =
+    "incorrect";
+
+  saveData();
+  updateStats();
+  nextCard();
+}
+
+
+function showIncorrectOnly() {
+
+  incorrectOnly = true;
+
+  applyFilters();
+}
+
+
+function showAllCards() {
+
+  incorrectOnly = false;
+
+  document.getElementById("categoryFilter").value =
+    "all";
+
+  applyFilters();
+}
+
+
+function openAddCards() {
+
+  document.getElementById("addCardsModal")
+    .classList.remove("hidden");
+}
+
+
+function closeAddCards() {
+
+  document.getElementById("addCardsModal")
+    .classList.add("hidden");
+}
+
+
+function addCards() {
+
+  const input =
+    document.getElementById("bulkInput")
+      .value.trim();
+
+  if(!input) return;
+
+  const lines =
+    input.split("\n");
+
+  let added = 0;
+  let duplicates = 0;
+
+  lines.forEach(line => {
+
+    const parts =
+      line.split("|");
+
+    if(parts.length < 2) return;
+
+    const question =
+      parts[0].trim();
+
+    const answer =
+      parts[1].trim();
+
+    const exists =
+      currentCards().some(card =>
+        card.question.toLowerCase() ===
+        question.toLowerCase()
+      );
+
+    if(exists) {
+      duplicates++;
+      return;
+    }
+
+    currentCards().push({
+      question,
+      answer,
+      hint:
+        parts[2]
+          ? parts[2].trim()
+          : "",
+      category:
+        parts[3]
+          ? parts[3].trim()
+          : "General",
+      image: "",
+      status: ""
+    });
+
+    added++;
+  });
+
+  saveData();
+
+  document.getElementById("bulkInput").value =
+    "";
+
+  closeAddCards();
+
+  updateCategories();
+  applyFilters();
+
+  alert(
+    `${added} cards added.` +
+    (duplicates
+      ? ` ${duplicates} duplicates skipped.`
+      : "")
+  );
 }
 
 
 function openEditor() {
 
-  if (!filteredCards.length) return;
+  if(!filteredCards.length) return;
 
   const card =
     filteredCards[currentIndex];
@@ -523,9 +1036,11 @@ function openEditor() {
   document.getElementById("editCategory").value =
     card.category || "";
 
+  document.getElementById("editImage").value =
+    card.image || "";
+
   document.getElementById("editModal")
     .classList.remove("hidden");
-
 }
 
 
@@ -533,72 +1048,504 @@ function closeEditor() {
 
   document.getElementById("editModal")
     .classList.add("hidden");
-
 }
 
 
 function saveEdit() {
 
-  if (!filteredCards.length) return;
+  if(!filteredCards.length) return;
 
   const card =
     filteredCards[currentIndex];
 
   card.question =
-    document.getElementById("editQuestion").value.trim();
+    document.getElementById("editQuestion")
+      .value.trim();
 
   card.answer =
-    document.getElementById("editAnswer").value.trim();
+    document.getElementById("editAnswer")
+      .value.trim();
 
   card.hint =
-    document.getElementById("editHint").value.trim();
+    document.getElementById("editHint")
+      .value.trim();
 
   card.category =
-    document.getElementById("editCategory").value.trim();
+    document.getElementById("editCategory")
+      .value.trim();
 
-  saveCards();
+  card.image =
+    document.getElementById("editImage")
+      .value.trim();
 
-  updateCategories();
+  saveData();
 
   closeEditor();
 
-  showingAnswer = false;
-
-  displayCard();
-
+  updateCategories();
+  applyFilters();
 }
 
 
 function deleteCard() {
 
-  if (!filteredCards.length) return;
+  if(!filteredCards.length) return;
 
   const card =
     filteredCards[currentIndex];
 
-  const index =
-    cards.indexOf(card);
+  if(!confirm(
+    `Delete this card?\n\n${card.question}`
+  )) return;
 
-  if (index !== -1) {
-    cards.splice(index, 1);
+  const index =
+    currentCards().indexOf(card);
+
+  if(index !== -1) {
+    currentCards().splice(index, 1);
   }
 
-  saveCards();
-
-  filteredCards = cards;
-
-  currentIndex = 0;
+  saveData();
 
   updateCategories();
-
-  displayCard();
-
+  applyFilters();
 }
 
 
-updateCategories();
+function openManageDeck() {
 
-displayCard();
+  document.getElementById("manageDeckModal")
+    .classList.remove("hidden");
+}
+
+
+function closeManageDeck() {
+
+  document.getElementById("manageDeckModal")
+    .classList.add("hidden");
+}
+
+
+function createDeck() {
+
+  const name =
+    prompt("Name your new deck:");
+
+  if(!name) return;
+
+  if(data.decks[name]) {
+    alert("A deck with that name already exists.");
+    return;
+  }
+
+  data.decks[name] = [];
+  data.currentDeck = name;
+
+  saveData();
+
+  updateDeckSelect();
+  updateCategories();
+  applyFilters();
+}
+
+
+function renameDeck() {
+
+  const oldName =
+    data.currentDeck;
+
+  const newName =
+    prompt("Rename deck:", oldName);
+
+  if(!newName || newName === oldName) return;
+
+  if(data.decks[newName]) {
+    alert("That deck name already exists.");
+    return;
+  }
+
+  data.decks[newName] =
+    data.decks[oldName];
+
+  delete data.decks[oldName];
+
+  data.currentDeck =
+    newName;
+
+  saveData();
+
+  updateDeckSelect();
+}
+
+
+function deleteDeck() {
+
+  const names =
+    Object.keys(data.decks);
+
+  if(names.length <= 1) {
+    alert("You must keep at least one deck.");
+    return;
+  }
+
+  if(!confirm(
+    `Delete the deck "${data.currentDeck}"?`
+  )) return;
+
+  delete data.decks[data.currentDeck];
+
+  data.currentDeck =
+    Object.keys(data.decks)[0];
+
+  saveData();
+
+  updateDeckSelect();
+  updateCategories();
+  applyFilters();
+}
+
+
+function resetProgress() {
+
+  if(!confirm(
+    "Reset correct and incorrect progress for this deck?"
+  )) return;
+
+  currentCards().forEach(card => {
+    card.status = "";
+  });
+
+  saveData();
+
+  applyFilters();
+}
+
+
+function exportCSV() {
+
+  let csv =
+    "Question,Answer,Hint,Category,Image,Status\n";
+
+  currentCards().forEach(card => {
+
+    const values = [
+      card.question,
+      card.answer,
+      card.hint || "",
+      card.category || "",
+      card.image || "",
+      card.status || ""
+    ].map(value =>
+      `"${String(value).replace(/"/g,'""')}"`
+    );
+
+    csv += values.join(",") + "\n";
+  });
+
+  const blob =
+    new Blob(
+      [csv],
+      { type: "text/csv" }
+    );
+
+  const link =
+    document.createElement("a");
+
+  link.href =
+    URL.createObjectURL(blob);
+
+  link.download =
+    data.currentDeck.replace(/\s+/g, "_")
+    + "_backup.csv";
+
+  link.click();
+}
+
+
+function parseCSVLine(line) {
+
+  const result = [];
+
+  let current = "";
+  let quoted = false;
+
+  for(let i = 0; i < line.length; i++) {
+
+    const char = line[i];
+
+    if(char === '"') {
+
+      if(
+        quoted &&
+        line[i + 1] === '"'
+      ) {
+        current += '"';
+        i++;
+      } else {
+        quoted = !quoted;
+      }
+
+    } else if(
+      char === "," &&
+      !quoted
+    ) {
+
+      result.push(current);
+      current = "";
+
+    } else {
+
+      current += char;
+    }
+  }
+
+  result.push(current);
+
+  return result;
+}
+
+
+function importCSV(event) {
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e) {
+
+    const lines =
+      e.target.result
+        .split(/\r?\n/)
+        .filter(Boolean);
+
+    if(lines.length <= 1) return;
+
+    let added = 0;
+
+    lines.slice(1).forEach(line => {
+
+      const row =
+        parseCSVLine(line);
+
+      if(row.length < 2) return;
+
+      currentCards().push({
+        question: row[0] || "",
+        answer: row[1] || "",
+        hint: row[2] || "",
+        category: row[3] || "General",
+        image: row[4] || "",
+        status: row[5] || ""
+      });
+
+      added++;
+    });
+
+    saveData();
+
+    updateCategories();
+    applyFilters();
+
+    alert(`${added} cards imported.`);
+  };
+
+  reader.readAsText(file);
+}
+
+
+function startQuiz() {
+
+  if(currentCards().length < 4) {
+
+    alert(
+      "Add at least 4 cards before using Quiz Mode."
+    );
+
+    return;
+  }
+
+  quizCards =
+    [...currentCards()];
+
+  quizCards.sort(
+    () => Math.random() - 0.5
+  );
+
+  quizIndex = 0;
+  quizScore = 0;
+
+  document.getElementById("studyArea")
+    .classList.add("hidden");
+
+  document.getElementById("quizArea")
+    .classList.remove("hidden");
+
+  showQuizQuestion();
+}
+
+
+function showQuizQuestion() {
+
+  if(quizIndex >= quizCards.length) {
+
+    document.getElementById("quizQuestion")
+      .textContent =
+      `Quiz complete: ${quizScore} / ${quizCards.length}`;
+
+    document.getElementById("quizChoices")
+      .innerHTML = "";
+
+    document.getElementById("quizFeedback")
+      .textContent = "";
+
+    return;
+  }
+
+  const card =
+    quizCards[quizIndex];
+
+  document.getElementById("quizQuestion")
+    .textContent =
+    card.question;
+
+  document.getElementById("quizFeedback")
+    .textContent = "";
+
+  let wrongAnswers =
+    currentCards()
+      .filter(c => c !== card)
+      .map(c => c.answer);
+
+  wrongAnswers =
+    [...new Set(wrongAnswers)];
+
+  wrongAnswers.sort(
+    () => Math.random() - 0.5
+  );
+
+  const choices =
+    [
+      card.answer,
+      ...wrongAnswers.slice(0, 3)
+    ];
+
+  choices.sort(
+    () => Math.random() - 0.5
+  );
+
+  const container =
+    document.getElementById("quizChoices");
+
+  container.innerHTML = "";
+
+  choices.forEach(choice => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "quiz-choice";
+
+    button.textContent =
+      choice;
+
+    button.onclick =
+      () => answerQuiz(
+        choice,
+        card.answer
+      );
+
+    container.appendChild(button);
+  });
+}
+
+
+function answerQuiz(selected, correct) {
+
+  const feedback =
+    document.getElementById("quizFeedback");
+
+  if(selected === correct) {
+
+    feedback.textContent =
+      "Correct.";
+
+    quizScore++;
+
+  } else {
+
+    feedback.textContent =
+      "Incorrect. Correct answer: "
+      + correct;
+  }
+}
+
+
+function nextQuizQuestion() {
+
+  quizIndex++;
+
+  showQuizQuestion();
+}
+
+
+function exitQuiz() {
+
+  document.getElementById("quizArea")
+    .classList.add("hidden");
+
+  document.getElementById("studyArea")
+    .classList.remove("hidden");
+}
+
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    const editing =
+      !document.getElementById("editModal")
+        .classList.contains("hidden");
+
+    const adding =
+      !document.getElementById("addCardsModal")
+        .classList.contains("hidden");
+
+    if(editing || adding) return;
+
+    if(event.code === "Space") {
+      event.preventDefault();
+      flipCard();
+    }
+
+    if(event.key === "ArrowRight") {
+      nextCard();
+    }
+
+    if(event.key === "ArrowLeft") {
+      previousCard();
+    }
+
+    if(event.key.toLowerCase() === "c") {
+      markCorrect({
+        stopPropagation: () => {}
+      });
+    }
+
+    if(event.key.toLowerCase() === "x") {
+      markIncorrect({
+        stopPropagation: () => {}
+      });
+    }
+  }
+);
+
+
+initialize();
 
 </script>
 
